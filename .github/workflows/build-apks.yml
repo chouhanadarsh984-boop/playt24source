@@ -8,11 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Clash2
     steps:
       - uses: actions/checkout@v4
+
+      - name: Find project folder
+        id: find
+        run: |
+          G=$(find . -name gradlew -not -path './.git/*' | head -1)
+          if [ -z "$G" ]; then
+            echo "gradlew NOT FOUND. Files in repo:"
+            find . -not -path './.git/*' -maxdepth 3 | head -60
+            exit 1
+          fi
+          echo "dir=$(dirname "$G")" >> $GITHUB_OUTPUT
 
       - uses: actions/setup-java@v5
         with:
@@ -22,6 +30,7 @@ jobs:
       - uses: android-actions/setup-android@v3
 
       - name: Build player and admin APKs
+        working-directory: ${{ steps.find.outputs.dir }}
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
@@ -29,9 +38,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: player-app
-          path: Clash2/app/build/outputs/apk/debug/*.apk
+          path: ${{ steps.find.outputs.dir }}/app/build/outputs/apk/debug/*.apk
 
       - uses: actions/upload-artifact@v4
         with:
           name: admin-app
-          path: Clash2/admin/build/outputs/apk/debug/*.apk
+          path: ${{ steps.find.outputs.dir }}/admin/build/outputs/apk/debug/*.apk
