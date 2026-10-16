@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "922527769978",
+    "firebase_url": "https://paynal-18aa1-default-rtdb.firebaseio.com",
+    "project_id": "paynal-18aa1",
+    "storage_bucket": "paynal-18aa1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922527769978:android:a2bf512c9536301b4f62c3",
+        "android_client_info": {
+          "package_name": "com.clash.admin"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjvtJ7eylMRFSnP1AmOShImF6L5toZi-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
